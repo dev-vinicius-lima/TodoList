@@ -13,7 +13,9 @@ import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { themes } from "../../global/themes";
 import { Input } from "../../components/Input";
 import Button from "../../components/Button";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 export default function Login() {
+  const navigation = useNavigation<NavigationProp<any>>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
@@ -21,20 +23,15 @@ export default function Login() {
 
   async function getLogin() {
     try {
+      setLoading(true);
       if (!email || !password) {
         return Alert.alert("Atenção", "Preencha todos os campos");
       }
-      setLoading(true);
-      setTimeout(() => {
-        if (email === "teste@teste.com" && password === "123456") {
-          Alert.alert("logado com sucesso");
-          setLoading(false);
-        } else {
-          Alert.alert("Erro", "Email ou senha inválida!");
-        }
-      }, 3000);
+      navigation.navigate("BottomRoutes");
     } catch (error) {
       console.log("Erro do getLogin => ", error);
+    } finally {
+      setLoading(false);
     }
   }
   return (
