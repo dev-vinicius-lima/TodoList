@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { style } from "./styles";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -11,8 +11,10 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { themes } from "../../global/themes";
+import { AuthContextList } from "../../context/authContextList";
 
 export default ({ state, navigation }: { state: any; navigation: any }) => {
+  const { onOpen } = useContext<any>(AuthContextList);
   const goToPage = (screenName: string) => {
     navigation.navigate(screenName);
   };
@@ -32,7 +34,7 @@ export default ({ state, navigation }: { state: any; navigation: any }) => {
             }}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={style.tabItemButtom}>
+        <TouchableOpacity style={style.tabItemButtom} onPress={onOpen}>
           <View style={{ width: "100%", left: 10, top: 4 }}>
             <Entypo name="plus" size={40} color={themes.colors.secondary} />
           </View>
